@@ -1,0 +1,137 @@
+- Linked List: Album
+- Dynamic Array: Photos
+- Struct: Photo Information (name, date, time, location, desciption...)
+struct Date {
+    int year;
+    int month;
+    int day;
+};
+
+struct Time {
+    int hour;
+    int minute;
+    int second;
+};
+
+struct Photo {
+    char name[50];
+    char locaion[50];
+    Date date
+    Time time
+    char description[100];
+};
+
+ALbum -> Photo -> Information
+
+!!!QUESTIONS!!!
+- Quy trình tạo album và thêm ảnh vào album:
+nhập id album (hàm khởi tạo album nhưng chưa có có ảnh)-> thêm ảnh vào album (hàm insertPhoto) -> nhập thông tin của ảnh -> done
+- Khi thêm Album mới:
+nhập id -> Do you want to insert new photo?
+if YES: tương tự như trên
+if NO: end 
+! Nếu chọn NO mà lúc sau muốn thêm lại ảnh thì sao? 
+chọn mode Access -> Insert new photo
+
+- Giả sử có ảnh 1 ở album 1 thì có cách nào lưu ảnh 1 ở album 2?
+
+Tương tác với album
+1. Access (done)
+2. Insert new album (Nhập ID cho album mới) (done)
+3. Delete album based on ID (done)
+4. Clear all (done)
+5. Print List of Albums (ID, Number of photos) (done)
+
+Tương tác với ảnh
+1. Access (show Information after accessing) (done)
+2. Insert new photo  (suy nghĩ thêm về quy trình thêm ảnh) (done)
+3. Delete photo based on name  (done)
+4. Clear all (done)
+5. Find photo based on name/date/location/description
+6. Find and delete similar photos (compare information)
+7. Print List of Photos in one album (show information of each photo) (done) 
+
+- With mode 'Delete' and "Clear all": Do you want to delete this album? YES/NO
+- Create function to show menu
+- Khi truy cập vào album và thao tác với ảnh cần có thêm mode Return lại giao diện với album
+
+    // Khởi tạo thông tin ảnh mẫu
+    Date date1 = {2023, 10, 27};
+    Time time1 = {14, 30, 0};
+    Infor photo1 = makeInfor("Photo1", "Location1", date1, time1, "Description1");
+    
+    Date date2 = {2023, 10, 28};
+    Time time2 = {15, 0, 0};    
+    Infor photo2 = makeInfor("Photo2", "Location2", date2, time2, "Description2");
+    
+    Date date3 = {2020, 11, 24};
+    Time time3 = {18, 34, 12};    
+    Infor photo3 = makeInfor("Photo3", "Location3", date3, time3, "Description3");
+
+    // Tạo danh sáchh n ảnh và gán thông tin đã tạo cho từng ảnh
+    Photo pt1 = makePhoto(1);
+    Photo pt2 = makePhoto(2);
+    pt1.photo[0] = photo1;
+    pt2.photo[0] = photo2;
+    pt2.photo[1] = photo3;
+
+    Photo pt3;
+
+    // Tạo hai Album 1 và 2 tương ứng với danh sách ảnh pt1 và pt2
+    Album *album1 = makeAlbum(1);
+    addAlbum(&album1, 2);
+    addAlbum(&album1, 3);
+
+    insertNewPhoto(album1);
+    removePhoto(album1, "Photo1");
+    // In thông tin album
+
+    // showAlbum(album1, 2);
+    // printListAlbum(album1);
+    // clearAlbum(&album1);
+    // removeAlbum(&album1, 1);
+
+    // clearPhotos(&album1, 2);
+    // clearPhotos(&album1, 1);
+    // printListAlbum(album1);
+    for (int i = 0; i < len(album1); i++) {
+        printListPhoto(album1, i + 1);
+    }
+
+    // Giải phóng bộ nhớ
+    freeAll(&album1);
+
+
+
+        switch(choice) {
+            case 0:
+                freeAll(&headAlbum);
+                break;
+            case 1:
+                printf("Enter ID of album: ");
+                int id; scanf("%d", id);
+                showAlbum(headAlbum, id);
+                break;
+            case 2:
+                printf("Enter ID of new album: ");
+                int new_id; scanf("%d", new_id);
+                addAlbum(&headAlbum, new_id);
+                break;
+            case 3:
+                printf("Enter ID: ");
+                int delete_id; scanf("%d", delete_id);
+                printf("Do you want to delete this album? (YES/NO)");
+                char *ans1; scanf("%s", ans1);
+                if (ans1 == "YES") removeAlbum(&headAlbum, delete_id);
+                else break;
+                break;
+            case 4:
+                printf("Do you want to delete this album? (YES/NO)");
+                char *ans; scanf("%s", ans);
+                if (ans == "YES") clearAlbum(&headAlbum);
+                else break;
+                break;
+            case 5:
+                printListAlbum(headAlbum);
+                break;
+        }
