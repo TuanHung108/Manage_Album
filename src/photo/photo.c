@@ -306,7 +306,7 @@ void accessAndEditPhoto(Album *head, const char *album_name) {
     Album *album = findAlbum(head, album_name);
 
     char photo_name[MAX_LENGTH];
-    printf("Enter photo name to acces: ");
+    printf("Enter photo name to access: ");
     getchar();
     fgets(photo_name, MAX_LENGTH, stdin);
     photo_name[strcspn(photo_name, "\n")] = '\0';
